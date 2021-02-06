@@ -27,7 +27,7 @@ const MobileNav = () => {
                 <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton} onClick={() => handlePageChange("/search")}>
                     <SearchIcon fontSize="large" />
                 </IconButton>
-                <Fab aria-label="add" className={classes.fabButton} onClick={() => handlePageChange("/")}>
+                <Fab aria-label="add" className={classes.fabButton} onClick={() => handlePageChange("/newRequest")}>
                     <AddIcon />
                 </Fab>
                 <div className={classes.grow} />
