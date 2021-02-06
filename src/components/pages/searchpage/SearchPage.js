@@ -1,11 +1,93 @@
 import React from 'react'
 import './searchpage.scss'
+import {styles} from './searchPage.style';
+import SearchBar from "material-ui-search-bar";
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import ExploreIcon from '@material-ui/icons/Explore';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Button from '@material-ui/core/Button';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
 const SearchPage = () => {
+    const classes = styles();
+    const [searchValue, setSearchValue] = React.useState('');
+    const [requestList, setRequestList] = React.useState([]);
+
+    React.useEffect(() => {
+        setRequestList([{name: "example1"}, {name: "example2"}, {name: "example3"}, {name: "example4"}, {name: "example5"}]);
+    }, []);
+
+    const doSomethingWith = (value) => {
+        console.log(value);
+    }
+
+    const handleMapButton = () => {
+
+    }
+
+    const handleFilterButton = () => {
+
+    }
+
     return (
         <div>
-            This is search.
+            <Grid container direction="column">
+                <Grid item>
+                    <Grid container direction={"row"} justify="space-between">
+                        <Grid item>
+                            <SearchBar
+                                value={searchValue}
+                                onChange={(newValue) => setSearchValue(newValue)}
+                                onRequestSearch={() => doSomethingWith(searchValue)}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <IconButton className={classes.iconButton} onClick={handleMapButton}>
+                                <ExploreIcon fontSize="default"/>
+                            </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <IconButton className={classes.iconButton} onClick={handleFilterButton}>
+                                <FilterListIcon fontSize="default"/>
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid item>
+                    <List className={classes.root}>
+                        {requestList.map(request => 
+                            <ListItem alignItems="flex-start" className={classes.listItem} key={request.name}>
+                                <div>
+                                    {request.name}
+                                    <Grid container direction="column">
+                                        <Grid item>
+                                            {"I'll be in your neighborhood doing errands this…"}
+                                        </Grid>
+                                        <Grid item>
+                                            <br />
+                                        </Grid>
+                                        <Grid item>
+                                            <Grid container direction="row" justify={"space-between"}>
+                                                <Grid item>
+                                                    <Button size="small" className={classes.categoryButton}>Category name</Button>
+                                                </Grid>
+                                                <Grid item>
+                                                    <Button variant="contained" size="small" className={classes.selectButton}>Select</Button>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </div>
+                            </ListItem>
+                        )}
+                    </List>
+                </Grid>
+            </Grid>
+
         </div>
     )
 }
