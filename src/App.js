@@ -18,9 +18,10 @@ function App() {
 
 
 
+
   return (
     <div className="App">
-      <AmplifySignOut />
+      {/* <AmplifySignOut /> */}
       <div className="body">
         <Switch>
           {renderPages()}
@@ -30,4 +31,6 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+export default App; 
+
+// export default withAuthenticator(App);
