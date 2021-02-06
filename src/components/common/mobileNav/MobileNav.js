@@ -21,21 +21,21 @@ const MobileNav = () => {
     return (
         <AppBar position="fixed" color="primary" className={classes.appBar}>
             <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton}>
-                    <HomeIcon fontSize="large" onClick={() => handlePageChange("/")}/>
+                <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton} onClick={() => handlePageChange("/")}>
+                    <HomeIcon fontSize="large" />
                 </IconButton>
-                <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton}>
-                    <SearchIcon fontSize="large" onClick={() => handlePageChange("/search")}/>
+                <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton} onClick={() => handlePageChange("/search")}>
+                    <SearchIcon fontSize="large" />
                 </IconButton>
-                <Fab aria-label="add" className={classes.fabButton}>
-                    <AddIcon onClick={() => handlePageChange("/")}/>
+                <Fab aria-label="add" className={classes.fabButton} onClick={() => handlePageChange("/")}>
+                    <AddIcon />
                 </Fab>
                 <div className={classes.grow} />
-                <IconButton color="inherit" className={classes.iconButton}>
-                    <NotificationsIcon fontSize="large" onClick={() => handlePageChange("/")}/>
+                <IconButton color="inherit" className={classes.iconButton} onClick={() => handlePageChange("/")}>
+                    <NotificationsIcon fontSize="large" />
                 </IconButton>
-                <IconButton edge="end" color="inherit" className={classes.iconButton}>
-                    <PersonIcon fontSize="large" onClick={() => handlePageChange("/profile")}/>
+                <IconButton edge="end" color="inherit" className={classes.iconButton} onClick={() => handlePageChange("/profile")}>
+                    <PersonIcon fontSize="large" />
                 </IconButton>
             </Toolbar>
         </AppBar>
