@@ -7,7 +7,7 @@ import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import {BrowserRouter} from 'react-router-dom';
 Amplify.configure(awsconfig);
-
+console.log(Auth.currentSession())
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
