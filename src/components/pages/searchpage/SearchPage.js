@@ -9,6 +9,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+import { getRecords } from "../../../middleware/api.js";
 
 const SearchPage = () => {
     const classes = styles();
@@ -16,7 +17,7 @@ const SearchPage = () => {
     const [requestList, setRequestList] = React.useState([]);
 
     React.useEffect(() => {
-        setRequestList([{name: "example1"}, {name: "example2"}, {name: "example3"}, {name: "example4"}, {name: "example5"}]);
+        getRecords("/requests").then(data => setRequestList(data));
     }, []);
 
     const doSomethingWith = (value) => {
@@ -58,23 +59,23 @@ const SearchPage = () => {
                 <Grid item>
                     <List className={classes.root}>
                         {requestList.map(request => 
-                            <ListItem alignItems="flex-start" className={classes.listItem} key={request.name}>
+                            <ListItem alignItems="flex-start" className={classes.listItem} key={request.title}>
                                 <div>
-                                    {request.name}
+                                    {request.title}
                                     <Grid container direction="column">
-                                        <Grid item>
-                                            {"I'll be in your neighborhood doing errands this…"}
+                                        <Grid item >
+                                            {request.description}
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item >
                                             <br />
                                         </Grid>
-                                        <Grid item>
-                                            <Grid container direction="row" justify={"space-between"}>
+                                        <Grid item >
+                                            <Grid container direction="row" justify={"space-between"} key={request.description}>
                                                 <Grid item>
-                                                    <Button size="small" className={classes.categoryButton}>Category name</Button>
+                                                    <Button size="small" className={classes.categoryButton} key={request.title}>{request.category}</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" size="small" className={classes.selectButton}>Select</Button>
+                                                    <Button variant="contained" size="small" className={classes.selectButton} key={request.title}>Select</Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>

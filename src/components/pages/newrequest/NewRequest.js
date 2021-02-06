@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import {styles} from "./newRequest.style";
 import { postRecords } from "../../../middleware/api.js";
 import { Auth } from "aws-amplify";
+import {CATEGORIES_LIST} from "../../../constants/categories.constants.js"
 
 const defaultValues = {
   title: "",
@@ -23,7 +24,7 @@ const NewRequest = () => {
     const [categories, setCategories] = useState([]);
 
     React.useEffect(() => {
-        setCategories(["example1","example2","example3","example4","example5","example6"]);
+        setCategories(CATEGORIES_LIST);
 
         const fetchUser = async () => {
             let userObject = await Auth.currentUserInfo()
