@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 
+import './App.scss';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { Route, Switch } from 'react-router';
+import HomePage from './components/pages/homepage';
+import Profile from './components/pages/profile';
 function App() {
+
+  const pages = [
+    {route: '/profile', page: <Profile />},
+    {route: '/', page: <HomePage />},
+    
+  ]
+
+  const renderPages = () => {
+    return pages.map( p => <Route key={p.route} path={p.route}>{p.page}</Route>);
+  }
+
+
+
   return (
     <div className="App">
       <AmplifySignOut />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="body">
+        <Switch>
+          {renderPages()}
+        </Switch>
+      </div>
     </div>
   );
 }

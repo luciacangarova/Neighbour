@@ -5,12 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from './aws-exports';
+import {BrowserRouter} from 'react-router-dom';
 Amplify.configure(awsconfig);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </BrowserRouter>  
+  ,
   document.getElementById('root')
 );
 
