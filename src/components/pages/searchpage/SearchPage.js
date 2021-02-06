@@ -17,8 +17,12 @@ const SearchPage = () => {
     const [requestList, setRequestList] = React.useState([]);
 
     React.useEffect(() => {
-        getRecords("/requests").then(data => setRequestList(data));
+        getRecords("/requests").then(data => {setRequestList(data); console.log(data)});
     }, []);
+
+    const handleSelectButton = (id) => {
+        window.location.href = "request/"+id;
+    }
 
     const doSomethingWith = (value) => {
         console.log(value);
@@ -75,7 +79,15 @@ const SearchPage = () => {
                                                     <Button size="small" className={classes.categoryButton} key={request.title}>{request.category}</Button>
                                                 </Grid>
                                                 <Grid item>
-                                                    <Button variant="contained" size="small" className={classes.selectButton} key={request.title}>Select</Button>
+                                                    <Button 
+                                                        variant="contained" 
+                                                        size="small" 
+                                                        className={classes.selectButton} 
+                                                        key={request.title}
+                                                        onClick={()=>handleSelectButton(request.id)}
+                                                    >
+                                                        Select
+                                                    </Button>
                                                 </Grid>
                                             </Grid>
                                         </Grid>
