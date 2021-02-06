@@ -61,7 +61,7 @@
 
     }
 
-    .my-requests {
+    .my-requests, .top-requests {
         padding: 2px;
         padding-top: 5px; 
         ul{
@@ -98,6 +98,50 @@
             margin: auto;
             display: block;
             color: #436E4B;
+        }
+    }
+    .request-categories{
+        color: #013220;
+        padding: 0px;
+        list-style: none;
+        display: flex;
+        overflow-y: auto;
+        height: 120px;
+        width: 100%;
+        li{
+            flex-shrink: 0;
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            flex-basis: 100px;
+            width: 100px;
+            height: 100px;
+            background: #CBF1D2;
+            margin: 5px;
+            svg{
+                color: #436E4B;
+                width: 30px;
+                height: 30px;
+                margin-top: -20px;
+            }
+
+
+            h5{
+                text-transform: capitalize;
+                margin: 0px;
+                width: 100%;
+                text-align: center;
+                padding-top: 5px;
+                align-self: flex-start;
+            }
+        }
+    }
+    .top-requests{
+        .status{
+            background: lightgreen !important;
+            
         }
     }
 

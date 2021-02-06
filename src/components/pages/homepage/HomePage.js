@@ -40,7 +40,33 @@ const HomePage = () => {
             "location": "55.864513, -4.261300"
         },
     ]
-    
+    const my_jobs = [
+        {
+            "id": 1,
+            "category": "Pet",
+            "description": "Plese walk my dog",
+            "expires_on": "2021-02-07T17:30:00",
+            "requester_id": "0",
+            "location": "55.864513, -4.261300"
+        },
+        {
+            "id": 2,
+            "category": "Social",
+            "description": "I would like to go for a walk",
+            "expires_on": "2021-02-07T17:30:00",
+            "requester_id": "0",
+            "location": "55.864513, -4.261300"
+        },
+        {
+            "id": 3,
+            "category": "Exercise",
+            "description": "Need some to spot me",
+            "expires_on": "2021-02-07T17:30:00",
+            "requester_id": "0",
+            "location": "55.864513, -4.261300"
+        },
+    ]
+    const categories = ["social", "favor", "exercise", "pets", "children"]
     useEffect(getUserName,[]);
 
     return (
@@ -77,10 +103,30 @@ const HomePage = () => {
                 </a>
 
             </div>
-            <div className="request-categories">
-
-            </div>
+            <h3>Explore</h3>
+            <ul className="request-categories">
+                {
+                    categories.map( (c, index) =>
+                        <li key={index}>
+                            <CategoryIcon category={c} />
+                            <h5>{c}</h5>
+                        </li> 
+                    )
+                }
+            </ul>
             <div className="top-requests">
+                <h3>My jobs</h3> 
+                <ul>
+                    {
+                        my_jobs.map( r => 
+                            <li key={r.id}>
+                                <CategoryIcon  category={r.category}/>
+                                <p>{r.description}</p>
+                                <p className="status">Done</p>
+                            </li>
+                        )
+                    }
+                </ul>
 
             </div>
         </div>
