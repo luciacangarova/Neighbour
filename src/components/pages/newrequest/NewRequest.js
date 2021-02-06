@@ -2,20 +2,19 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
 import { SingleSelect } from "react-select-material-ui";
 import Button from "@material-ui/core/Button";
 import {styles} from "./newRequest.style";
+import { postRecords } from "../../../middleware/api.js";
+import { Auth } from "aws-amplify";
 
 const defaultValues = {
   title: "",
   description: "",
   category: "",
   location: "",
-  dueDate: "",
-  expireDate: ""
+  expires_on: "",
+  requester_id: ""
 };
 
 const NewRequest = () => {
@@ -25,6 +24,16 @@ const NewRequest = () => {
 
     React.useEffect(() => {
         setCategories(["example1","example2","example3","example4","example5","example6"]);
+
+        const fetchUser = async () => {
+            let userObject = await Auth.currentUserInfo()
+            setFormValues({
+                ...formValues,
+                requester_id: userObject.attributes? userObject.attributes.email : "john.doe@mail.com",
+            });
+        };
+
+        fetchUser();
     }, []);
 
     const handleInputChange = (e) => {
@@ -44,7 +53,7 @@ const NewRequest = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(formValues);
+        postRecords("/request", formValues);
     };
 
     return (
@@ -100,7 +109,9 @@ const NewRequest = () => {
                     id="datetime-input"
                     label="Due date"
                     type="datetime-local"
-                    value={formValues.dueDate}
+                    name="expires_on"
+                    defaultValue={formValues.expires_on}
+                    onChange={handleInputChange}
                     InputLabelProps={{
                         shrink: true,
                     }}
