@@ -17,7 +17,7 @@ const SearchPage = () => {
     const [requestList, setRequestList] = React.useState([]);
 
     React.useEffect(() => {
-        getRecords("/requests").then(data => {setRequestList(data); console.log(data)});
+        getRecords("/all-requests").then(data => {setRequestList(data); console.log(data)});
     }, []);
 
     const handleSelectButton = (id) => {

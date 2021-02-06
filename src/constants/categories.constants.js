@@ -5,3 +5,11 @@ export const CATEGORIES_LIST = [
     "Kids",
     "Pets"
 ]
+
+export const JOB_STATUS_LIST = [
+    "Open",
+    "Pending",
+    "In progress", 
+    "Completed",
+    "Uncompleted"
+]
