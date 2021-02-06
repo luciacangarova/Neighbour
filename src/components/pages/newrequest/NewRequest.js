@@ -55,6 +55,7 @@ const NewRequest = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         postRecords("/request", formValues);
+        window.location.href = "/";
     };
 
     return (
