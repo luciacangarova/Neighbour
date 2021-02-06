@@ -31,7 +31,7 @@ export const getRecords = async (urlString) => {
             headers: HEADERS
         });
         if (response.status) {
-            if (response.data) return response.data;
+            if (response.data) return await response.data.body;
         }
     } catch (error) {
         console.log(error);
