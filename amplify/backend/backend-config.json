@@ -1,6 +1,6 @@
 {
   "auth": {
-    "neighbour04eb6b50": {
+    "neighbourcdf23287": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
