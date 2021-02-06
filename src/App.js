@@ -35,6 +35,6 @@ function App() {
   );
 }
 
-export default App; 
+// export default App; 
 
-// export default withAuthenticator(App);
+export default withAuthenticator(App);

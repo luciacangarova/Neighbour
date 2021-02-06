@@ -12,7 +12,7 @@ const HomePage = () => {
     
     const getUserName = async () => {
         const userObject = await Auth.currentUserInfo();
-        setUser(userObject ? userObject.attributes.email: "John Doe");
+        setUser(userObject ? userObject.attributes ? userObject.attributes.email: "John Doe": "John Doe" );
     }
     const my_requests = [
         {
@@ -25,7 +25,7 @@ const HomePage = () => {
         },
         {
             "id": 2,
-            "category": "Social",
+            "category": "Favor",
             "description": "I would like to go a walk",
             "expires_on": "2021-02-07T17:30:00",
             "requester_id": "0",
@@ -33,8 +33,8 @@ const HomePage = () => {
         },
         {
             "id": 3,
-            "category": "Social",
-            "description": "I would like to go a walk",
+            "category": "Exercise",
+            "description": "Looking for a gym buddy",
             "expires_on": "2021-02-07T17:30:00",
             "requester_id": "0",
             "location": "55.864513, -4.261300"
