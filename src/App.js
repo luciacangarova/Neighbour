@@ -5,10 +5,12 @@ import { Route, Switch } from 'react-router';
 import HomePage from './components/pages/homepage';
 import Profile from './components/pages/profile';
 import SearchPage from './components/pages/searchpage';
+import NewRequest from './components/pages/newrequest';
 import MobileNav from './components/common/mobileNav';
 function App() {
 
   const pages = [
+    {route: '/newRequest', page: <NewRequest />},
     {route: '/search', page: <SearchPage />},
     {route: '/profile', page: <Profile />},
     {route: '/', page: <HomePage />},
