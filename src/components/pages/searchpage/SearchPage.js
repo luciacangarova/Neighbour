@@ -9,8 +9,6 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
-import ListItemText from '@material-ui/core/ListItemText';
-
 
 const SearchPage = () => {
     const classes = styles();
