@@ -4,9 +4,12 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { Route, Switch } from 'react-router';
 import HomePage from './components/pages/homepage';
 import Profile from './components/pages/profile';
+import SearchPage from './components/pages/searchpage';
+import MobileNav from './components/common/mobileNav';
 function App() {
 
   const pages = [
+    {route: '/search', page: <SearchPage />},
     {route: '/profile', page: <Profile />},
     {route: '/', page: <HomePage />},
     
@@ -25,6 +28,7 @@ function App() {
         <Switch>
           {renderPages()}
         </Switch>
+        <MobileNav />
       </div>
     </div>
   );
