@@ -6,7 +6,10 @@ import HomePage from './components/pages/homepage';
 import Profile from './components/pages/profile';
 import SearchPage from './components/pages/searchpage';
 import NewRequest from './components/pages/newrequest';
+import RequestDetail from './components/pages/requestdetail';
+import MyRequest from './components/pages/myrequest';
 import MobileNav from './components/common/mobileNav';
+
 function App() {
 
   const pages = [
@@ -26,9 +29,11 @@ function App() {
 
   return (
     <div className="App">
-      {/* <AmplifySignOut /> */}
+      <AmplifySignOut />
       <div className="body">
         <Switch>
+          <Route path={'/request/:id'} render={(props)=> <RequestDetail {...props}/>} />
+          <Route path={'/myrequest/:id'} render={(props)=> <MyRequest {...props}/>} />
           {renderPages()}
         </Switch>
         <MobileNav />
@@ -37,6 +42,4 @@ function App() {
   );
 }
 
-export default App; 
-
-// export default withAuthenticator(App);
+export default withAuthenticator(App);

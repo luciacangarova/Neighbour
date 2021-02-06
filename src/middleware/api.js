@@ -4,7 +4,7 @@ const SERVER_URL = "https://8r3b4690l4.execute-api.eu-west-2.amazonaws.com/dev";
 
 const HEADERS = {
     'content-type': 'text/plain',
-    'accept' : '*/*'
+    'accept' : '*',
 }
 
 export const postRecords = async (urlString, data) => {
@@ -22,16 +22,17 @@ export const postRecords = async (urlString, data) => {
     }
 }
 
-export const getRecords = async (urlString) => {
+export const getRecords = async (urlString, additionalHeaders) => {
     const url = new URL(SERVER_URL+urlString);
 
     try{
         const response = await axios(url.href, {
             method: "GET",
-            headers: HEADERS
+            headers: {...HEADERS, ...additionalHeaders}
         });
         if (response.status) {
-            if (response.data) return await response.data.body;
+            if (response.data.body){return await response.data.body;}
+            else {return response.data;}
         }
     } catch (error) {
         console.log(error);
