@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "neighbourd45e34cf_identitypool_d45e34cf",
+    "identityPoolName": "neighbour04eb6b50_identitypool_04eb6b50",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "neighbd45e34cf",
-    "userPoolName": "neighbourd45e34cf_userpool_d45e34cf",
+    "resourceNameTruncated": "neighb04eb6b50",
+    "userPoolName": "neighbour04eb6b50_userpool_04eb6b50",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,15 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "address",
+        "birthdate",
+        "email",
+        "family_name",
+        "gender",
+        "given_name",
+        "phone_number",
+        "picture",
+        "updated_at"
     ],
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,10 +36,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "neighbd45e34cf_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "neighb04eb6b50_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "d45e34cf",
-    "resourceName": "neighbourd45e34cf",
+    "sharedId": "04eb6b50",
+    "resourceName": "neighbour04eb6b50",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -47,10 +55,15 @@
     },
     "useDefault": "default",
     "usernameAttributes": [
-        "email, phone_number"
+        "email"
     ],
+    "triggers": "{}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }
