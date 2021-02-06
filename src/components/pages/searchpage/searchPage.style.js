@@ -17,5 +17,8 @@ export const styles = makeStyles((theme) => ({
     },
     selectButton: {
         backgroundColor: "#FFC000 !important",
+    },
+    buttonBar: {
+        width: 350
     }
   }));

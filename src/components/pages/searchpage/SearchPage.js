@@ -70,7 +70,7 @@ const SearchPage = () => {
                                             <br />
                                         </Grid>
                                         <Grid item >
-                                            <Grid container direction="row" justify={"space-between"} key={request.description}>
+                                            <Grid container direction="row" justify={"space-between"} className={classes.buttonBar} key={request.description}>
                                                 <Grid item>
                                                     <Button size="small" className={classes.categoryButton} key={request.title}>{request.category}</Button>
                                                 </Grid>
