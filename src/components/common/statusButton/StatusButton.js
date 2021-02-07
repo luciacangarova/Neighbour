@@ -3,17 +3,17 @@ import Button from "@material-ui/core/Button";
 
 
 const getBackgourndColor = (value) => {
-    switch(value.toLowerCase()){
+    switch(value ? value.toLowerCase(): ""){
         case "open":
-            return "red";
+            return "#3f51b5";
         case "pending":
-            return "orange";
+            return "lightyellow";
         case "in progress":
-            return "yellow";
+            return "lightblue";
         case "completed":
-            return "green";
+            return "lightgreen";
         default:
-            return "grey";
+            return "#f5f5f5";
     }
 }
 
