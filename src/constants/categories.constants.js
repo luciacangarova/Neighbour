@@ -1,15 +1,15 @@
 export const CATEGORIES_LIST = [
     "Social",
     "Favour",
-    "Excercise",
+    "Exercise",
     "Kids",
     "Pets"
 ]
 
 export const JOB_STATUS_LIST = [
-    "Open",
-    "Pending",
-    "In progress", 
-    "Completed",
-    "Uncompleted"
+    "open",
+    "pending",
+    "in progress", 
+    "completed",
+    "uncompleted"
 ]
