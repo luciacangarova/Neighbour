@@ -11,6 +11,7 @@ import { SingleSelect } from "react-select-material-ui";
 import Map from '../../common/map';
 import { useHistory } from "react-router";
 import StatusButton from "../../common/statusButton/StatusButton.js";
+import "./requestpage.scss";
 
 const values = {
   title: "",
@@ -97,181 +98,174 @@ const RequestDetail = (props) => {
     }
 
     return (
-        <>
-        {!isMyRequest?
-        <>
-            <Grid container direction="column" className={classes.root}>
-                <Grid item>
-                    <Grid container direction="row" justify={"space-between"}>
-                        <Grid item>
-                            {detailValues.title}
-                        </Grid>
-                        <Grid item>
-                            <StatusButton status={detailValues.status} />
+        <div className="request-page">
+            <div className="detail-header">
+            <Grid container direction="column">
+                    <Grid item>
+                        <Grid container direction="row" justify={"space-between"}>
+                            <Grid item className="heading">
+                                {detailValues.title}
+                            </Grid>
+                            <Grid item className="status-wrp">
+                                <StatusButton status={detailValues.status} />
+                            </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-                
-                <Grid item>
-                    <TextField
-                        id="description-input"
-                        name="description"
-                        label="Description"
-                        type="text"
-                        value={detailValues.description}
-                        className={classes.textField}
-                        disabled
-                    />
-                </Grid>
-                <Grid item>
-                    <TextField
-                            id="category-input"
-                            name="category"
-                            label="Category"
+            </Grid>
+            </div>
+            {!isMyRequest?
+            <>
+                <Grid container direction="column" className={classes.root}>                    
+                    <Grid item>
+                        <TextField
+                            id="description-input"
+                            name="description"
+                            label="Description"
                             type="text"
-                            value={detailValues.category}
+                            value={detailValues.description}
                             className={classes.textField}
                             disabled
-                        />    
-                </Grid>
-                <Grid item>
-                    <TextField
-                        id="location-input"
-                        name="location"
-                        label="Location"
-                        type="text"
-                        value={detailValues.lat + ", "+detailValues.long}
-                        className={classes.textField}
-                        disabled
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                </Grid>
-                <Grid item>
-                    {detailValues.lat? <Map 
-                        centerLocation={{lat: detailValues.lat,
+                        />
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                                id="category-input"
+                                name="category"
+                                label="Category"
+                                type="text"
+                                value={detailValues.category}
+                                className={classes.textField}
+                                disabled
+                            />    
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            id="location-input"
+                            name="location"
+                            label="Location"
+                            type="text"
+                            value={detailValues.lat + ", "+detailValues.long}
+                            className={classes.textField}
+                            disabled
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
+                    </Grid>
+                    <Grid item>
+                        {detailValues.lat? <Map 
+                            centerLocation={{lat: detailValues.lat,
+                                            lng: detailValues.long,
+                                    }}
+                            locations={[{lat: detailValues.lat,
                                         lng: detailValues.long,
-                                }}
-                        locations={[{lat: detailValues.lat,
-                                    lng: detailValues.long,
-                                    address: "Location",
-                                    jobID: detailId
-                                }]}
-                        zoomLevel={15}
-                        myHistory={history}
-                        height={"200px"}
-                            /> 
-                    : null}
-                </Grid>
-                <Grid item>
-                    <TextField
-                        id="datetime-input"
-                        label="Due date"
-                        type="text"
-                        name="expires_on"
-                        value={detailValues.expires_on}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        className={classes.textField}
-                        disabled
-                    />
-                </Grid>
-            </Grid>
-            <Grid container alignItems="center" justify="center">
-                <Grid item>
-                    <Button 
-                        variant="contained" 
-                        type="submit" 
-                        className={classes.submitButton}
-                        onClick={handleVolunteerButton}
-                        disabled={disableVolunteerButton}
-                    >
-                        Volunteer
-                    </Button>
-                </Grid>
-            </Grid>
-        </>
-        : 
-        <>
-            <Grid container direction="column" className={classes.root}>
-                <Grid item>
-                    <Grid container direction="row" justify={"space-between"}>
-                        <Grid item>
-                            {"My Request"}
-                        </Grid>
-                        <Grid item>
-                            <StatusButton status={detailValues.status} />
-                        </Grid>
+                                        address: "Location",
+                                        jobID: detailId
+                                    }]}
+                            zoomLevel={15}
+                            myHistory={history}
+                            height={"200px"}
+                                /> 
+                        : null}
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            id="datetime-input"
+                            label="Due date"
+                            type="text"
+                            name="expires_on"
+                            value={detailValues.expires_on}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            className={classes.textField}
+                            disabled
+                        />
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <TextField
-                        id="title-input"
-                        name="title"
-                        label="Title"
-                        type="text"
-                        value={detailValues.title}
-                        className={classes.textField}
-                        disabled
-                    />
+                <Grid container alignItems="center" justify="center">
+                    <Grid item>
+                        <Button 
+                            variant="contained" 
+                            type="submit" 
+                            className={classes.submitButton}
+                            onClick={handleVolunteerButton}
+                            disabled={disableVolunteerButton}
+                        >
+                            Volunteer
+                        </Button>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <div className={classes.dropdownPanel}>
-                    <InputLabel>Volunteer</InputLabel>
-                    <SingleSelect
-                        value={volunteer.id}
-                        onChange={handleDropdownChange}
-                        placeholder="Select a volunteer"
-                        options={detailValues.potential_helper_ids}
-                    />  
-                    </div>        
-                </Grid>
-                <Grid item>
-                    <TextField
-                        id="location-input"
-                        name="location"
-                        label="Location"
-                        type="text"
-                        value={volunteer.location}
-                        className={classes.textField}
-                        disabled
-                    />
-                </Grid>
-                <Grid item>
-                    {volunteer.location? <Map 
-                        centerLocation={{lat: detailValues.lat,
+            </>
+            : 
+            <>
+                <Grid container direction="column" className={classes.root}>
+                    <Grid item>
+                        <TextField
+                            id="title-input"
+                            name="title"
+                            label="Title"
+                            type="text"
+                            value={detailValues.title}
+                            className={classes.textField}
+                            disabled
+                        />
+                    </Grid>
+                    <Grid item>
+                        <div className={classes.dropdownPanel}>
+                        <InputLabel>Volunteer</InputLabel>
+                        <SingleSelect
+                            value={volunteer.id}
+                            onChange={handleDropdownChange}
+                            placeholder="Select a volunteer"
+                            options={detailValues.potential_helper_ids}
+                        />  
+                        </div>        
+                    </Grid>
+                    <Grid item>
+                        <TextField
+                            id="location-input"
+                            name="location"
+                            label="Location"
+                            type="text"
+                            value={volunteer.location}
+                            className={classes.textField}
+                            disabled
+                        />
+                    </Grid>
+                    <Grid item>
+                        {volunteer.location? <Map 
+                            centerLocation={{lat: detailValues.lat,
+                                            lng: detailValues.long,
+                                    }}
+                            locations={[{lat: detailValues.lat,
                                         lng: detailValues.long,
-                                }}
-                        locations={[{lat: detailValues.lat,
-                                    lng: detailValues.long,
-                                    address: "Location",
-                                    jobID: detailId
-                                }]}
-                        zoomLevel={15}
-                        myHistory={history}
-                        height={"200px"}
-                            /> 
-                    : null}
+                                        address: "Location",
+                                        jobID: detailId
+                                    }]}
+                            zoomLevel={15}
+                            myHistory={history}
+                            height={"200px"}
+                                /> 
+                        : null}
+                    </Grid>
                 </Grid>
-            </Grid>
-            <Grid container alignItems="center" justify="center">
-                <Grid item>
-                    <Button 
-                        variant="contained" 
-                        type="submit" 
-                        className={classes.submitButton}
-                        onClick={handleSelectVolunteerButton}
-                        disabled={disableSelectVolunteerButton}
-                    >
-                        Select Volunteer
-                    </Button>
+                <Grid container alignItems="center" justify="center">
+                    <Grid item>
+                        <Button 
+                            variant="contained" 
+                            type="submit" 
+                            className={classes.submitButton}
+                            onClick={handleSelectVolunteerButton}
+                            disabled={disableSelectVolunteerButton}
+                        >
+                            Select Volunteer
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </>        
-        }
-        </>
+            </>        
+            }
+        </div>
     );
 };
 export default RequestDetail;
