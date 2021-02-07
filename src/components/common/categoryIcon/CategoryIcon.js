@@ -7,19 +7,17 @@ import ChildFriendlyIcon from '@material-ui/icons/ChildFriendly';
 
 const CategoryIcon = ( {category} ) => {
     
-    const categories = ["social", "favor", "exercise", "pets", "children"]
-
     const getIcon = () => {
         switch (category.toLowerCase()) {
             case "social":
                 return <LocalBarRounded /> 
-            case "favor":
+            case "favour":
                 return <PanToolIcon />;
             case "exercise":
                 return <DirectionsRunIcon />;
             case "pets":
                 return <PetsIcon />;
-            case "children":
+            case "kids":
                 return <ChildFriendlyIcon/>;
 
             default:

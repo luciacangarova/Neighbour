@@ -11,16 +11,18 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { getRecords } from "../../../middleware/api.js";
 import { useHistory } from "react-router-dom";
+import * as QueryString from "query-string"
 
-const SearchPage = () => {
+const SearchPage = (props) => {
     const classes = styles();
+    const [filters, setFilters] = React.useState({})
     const [searchValue, setSearchValue] = React.useState('');
     const [requestList, setRequestList] = React.useState([]);
     const [filteredRequestList, setFilteredRequestList] = React.useState([]);
     const history = useHistory()
-
     React.useEffect(() => {
         getRecords("/all-requests").then(data => {setRequestList(data); setFilteredRequestList(data)});
+        getFiltersFromUrl();
     }, []);
 
     const handleSelectButton = (id) => {
@@ -43,6 +45,12 @@ const SearchPage = () => {
 
     const handleFilterButton = () => {
 
+    }
+
+    const getFiltersFromUrl = () => {
+        const params = QueryString.parse(props.location.search);
+        setFilters({...params});
+        return params;
     }
 
     return (
@@ -71,7 +79,7 @@ const SearchPage = () => {
                 <Grid item>
                     <List className={classes.root}>
                         {filteredRequestList.map(request => 
-                            <ListItem alignItems="flex-start" className={classes.listItem} key={request.title}>
+                            <ListItem alignItems="flex-start" className={classes.listItem} key={request.id}>
                                 <div>
                                     {request.title}
                                     <Grid container direction="column">
