@@ -72,14 +72,14 @@ const RequestDetail = (props) => {
             "helper_id": userId,
             }
         );
-        //window.location.href = "/";
+        history.push("/");
     }
 
     const handleSelectVolunteerButton = (event) => {
         event.preventDefault();
         console.log(volunteer)
-        //postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
-        //window.location.href = "/";
+        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
+        history.push("/");
     }
 
     const handleDropdownChange = (e) => {
