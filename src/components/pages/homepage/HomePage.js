@@ -5,69 +5,53 @@ import {ReactComponent as Logo} from '../../../logo.svg';
 import {Auth} from 'aws-amplify';
 import {ReactComponent as Coins } from '../../../assets/coins.svg';
 import CategoryIcon from '../../common/categoryIcon';
+import { getRecords } from "../../../middleware/api.js";
+import { fetchEmail } from "../../../functions/services"
+import { request } from 'http';
+import { Link } from 'react-router-dom';
+import {CATEGORIES_LIST} from '../../../constants/categories.constants'
 
 
 const HomePage = () => {
     const [user, setUser] = useState("");
+    const [myRequests, setMyRequests] = useState([]);
+    const [myJobs, setMyJobs] = useState([]);
+    const [myEmail, setMyEmail] = useState([]);
+
+    const fethRecords = async (email) => {
+        const data = await getRecords("/all-requests");
+        const requests = data.filter( r => r.requester_id === email);
+        const jobs = data.filter( r => isHisJob(r, email));
+        console.log(requests);
+        console.log(jobs);
+        setMyRequests([...requests]);
+        setMyJobs([...jobs]);
+
+    }
+
+    const isHisJob = (job, email) => {
+        if(job.helper_id) {
+            return job.helper_id.S === email;
+        }else {
+            return job.potential_helper_ids && 
+            job.potential_helper_ids.L.filter(id=> id === email).length > 0
+        }
+    }
     
+
     const getUserName = async () => {
         const userObject = await Auth.currentUserInfo();
         setUser(userObject ? userObject.attributes ? userObject.attributes.email: "John Doe": "John Doe" );
     }
-    const my_requests = [
-        {
-            "id": 1,
-            "category": "Social",
-            "description": "I would like to go a walk",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-        {
-            "id": 2,
-            "category": "Favor",
-            "description": "I would like to go a walk",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-        {
-            "id": 3,
-            "category": "Exercise",
-            "description": "Looking for a gym buddy",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-    ]
-    const my_jobs = [
-        {
-            "id": 1,
-            "category": "Pet",
-            "description": "Plese walk my dog",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-        {
-            "id": 2,
-            "category": "Social",
-            "description": "I would like to go for a walk",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-        {
-            "id": 3,
-            "category": "Exercise",
-            "description": "Need some to spot me",
-            "expires_on": "2021-02-07T17:30:00",
-            "requester_id": "0",
-            "location": "55.864513, -4.261300"
-        },
-    ]
-    const categories = ["social", "favor", "exercise", "pets", "children"]
-    useEffect(getUserName,[]);
+
+    const categories = CATEGORIES_LIST
+    useEffect(async ()=>{
+        getUserName()
+        const email = (await fetchEmail());
+        await fethRecords(email);
+        if(!myRequests) return false;
+        
+    },[]);
 
     return (
         <div className="home-page">
@@ -89,11 +73,12 @@ const HomePage = () => {
                 <h3>My requests</h3>
                 <ul>
                     {
-                        my_requests.map( r => 
+                        myRequests && myRequests.length > 0 &&
+                        myRequests.map( r => 
                             <li key={r.id}>
                                 <CategoryIcon  category={r.category}/>
-                                <p>{r.description}</p>
-                                <p className="status">Pending</p>
+                                <Link to={`request/${r.id}`}>{r.description}</Link>
+                                <p className="status">{r.status.S}</p>
                             </li>
                         )
                     }
@@ -108,8 +93,10 @@ const HomePage = () => {
                 {
                     categories.map( (c, index) =>
                         <li key={index}>
-                            <CategoryIcon category={c} />
-                            <h5>{c}</h5>
+                            <Link to={`/search/?category=${c.toLowerCase()}`}>
+                                <CategoryIcon category={c} />
+                                <h5>{c}</h5>
+                            </Link>
                         </li> 
                     )
                 }
@@ -118,11 +105,11 @@ const HomePage = () => {
                 <h3>My jobs</h3> 
                 <ul>
                     {
-                        my_jobs.map( r => 
+                        myJobs.map( r => 
                             <li key={r.id}>
                                 <CategoryIcon  category={r.category}/>
-                                <p>{r.description}</p>
-                                <p className="status">Done</p>
+                                <Link to={`request/${r.id}`}>{r.description}</Link>
+                                <p className="status">{r.status.S}</p>
                             </li>
                         )
                     }

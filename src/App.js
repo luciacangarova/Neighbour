@@ -14,7 +14,6 @@ function App() {
 
   const pages = [
     {route: '/newRequest', page: <NewRequest />},
-    {route: '/search', page: <SearchPage />},
     {route: '/profile', page: <Profile />},
     {route: '/', page: <HomePage />},
     
@@ -33,6 +32,7 @@ function App() {
       <div className="body">
         <Switch>
           <Route path={'/request/:id'} render={(props)=> <RequestDetail {...props}/>} />
+          <Route path={'/search'} render={(props)=> <SearchPage {...props}/>} />
           {renderPages()}
         </Switch>
         <MobileNav />
