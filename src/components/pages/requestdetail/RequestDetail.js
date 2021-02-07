@@ -5,7 +5,7 @@ import { postRecords } from "../../../middleware/api.js";
 import Button from "@material-ui/core/Button";
 import {styles} from "./requestDetail.styles";
 import { Auth } from "aws-amplify";
-import { getRecords } from "../../../middleware/api.js";
+import { getRecords, putRecords } from "../../../middleware/api.js";
 import InputLabel from '@material-ui/core/InputLabel';
 import { SingleSelect } from "react-select-material-ui";
 import Map from '../../common/map';
@@ -74,6 +74,11 @@ const RequestDetail = (props) => {
             "helper_id": userId,
             }
         );
+        history.push("/");
+    }
+
+    const handleStatusChange = (val) => {
+        putRecords("/request?id="+detailId+"&status="+val);
         history.push("/");
     }
 
@@ -256,7 +261,36 @@ const RequestDetail = (props) => {
                     : null}
                 </Grid>
             </Grid>
-            <Grid container alignItems="center" justify="center">
+            <Grid container alignItems="center" justify="space-evenly" direction="column">
+                {detailValues.status==="in progress"?
+                <>
+                    <Grid item>
+                        <Button 
+                            variant="contained" 
+                            type="submit" 
+                            className={classes.submitButton}
+                            onClick={()=> handleStatusChange("completed")}
+                            disabled={detailValues.status==="completed" || detailValues.status==="uncompleted"}
+                        >
+                            Mark as Completed
+                        </Button>
+                    </Grid>
+                    <Grid item>
+                        <br />
+                    </Grid>
+                    <Grid item>
+                        <Button 
+                            variant="contained" 
+                            type="submit" 
+                            className={classes.submitButton}
+                            onClick={()=> handleStatusChange("uncompleted")}
+                            disabled={detailValues.status==="completed" || detailValues.status==="uncompleted"}
+                        >
+                            Mark as Uncompleted
+                        </Button>
+                    </Grid>
+                </>
+                :
                 <Grid item>
                     <Button 
                         variant="contained" 
@@ -268,6 +302,7 @@ const RequestDetail = (props) => {
                         Select Volunteer
                     </Button>
                 </Grid>
+                }      
             </Grid>
         </>        
         }

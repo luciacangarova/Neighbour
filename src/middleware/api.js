@@ -22,6 +22,21 @@ export const postRecords = async (urlString, data) => {
     }
 }
 
+export const putRecords = async (urlString, data) => {
+    const url = new URL(SERVER_URL+urlString);
+
+    try{
+        const response = await axios(url.href, {
+            method: "PUT",
+            headers: HEADERS,
+            data: {"body" : data}
+        });
+        if (response.status) return response;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getRecords = async (urlString, additionalHeaders) => {
     const url = new URL(SERVER_URL+urlString);
 
