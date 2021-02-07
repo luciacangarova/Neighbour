@@ -15,17 +15,24 @@ const SearchPage = () => {
     const classes = styles();
     const [searchValue, setSearchValue] = React.useState('');
     const [requestList, setRequestList] = React.useState([]);
+    const [filteredRequestList, setFilteredRequestList] = React.useState([]);
 
     React.useEffect(() => {
-        getRecords("/all-requests").then(data => {setRequestList(data); console.log(data)});
+        getRecords("/all-requests").then(data => {setRequestList(data); setFilteredRequestList(data)});
     }, []);
 
     const handleSelectButton = (id) => {
         window.location.href = "request/"+id;
     }
 
-    const doSomethingWith = (value) => {
-        console.log(value);
+    const doSearch = (value) => {
+        let currentList = requestList;
+        let newList = currentList.filter(item => {
+                const lc = item.title.toLowerCase();
+                const filter = value.toLowerCase();
+                return lc.includes(filter);
+            });
+        setFilteredRequestList(newList);
     }
 
     const handleMapButton = () => {
@@ -44,8 +51,7 @@ const SearchPage = () => {
                         <Grid item>
                             <SearchBar
                                 value={searchValue}
-                                onChange={(newValue) => setSearchValue(newValue)}
-                                onRequestSearch={() => doSomethingWith(searchValue)}
+                                onChange={(newValue) => {setSearchValue(newValue); doSearch(newValue);}}
                             />
                         </Grid>
                         <Grid item>
@@ -62,7 +68,7 @@ const SearchPage = () => {
                 </Grid>
                 <Grid item>
                     <List className={classes.root}>
-                        {requestList.map(request => 
+                        {filteredRequestList.map(request => 
                             <ListItem alignItems="flex-start" className={classes.listItem} key={request.title}>
                                 <div>
                                     {request.title}
