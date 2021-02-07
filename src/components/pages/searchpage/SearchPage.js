@@ -21,7 +21,16 @@ const SearchPage = (props) => {
     const [filteredRequestList, setFilteredRequestList] = React.useState([]);
     const history = useHistory()
     React.useEffect(() => {
-        getRecords("/all-requests").then(data => {setRequestList(data); setFilteredRequestList(data)});
+        getRecords("/all-requests").then(data => {
+            setRequestList(data); 
+            const filtrs = getFiltersFromUrl();
+            setFilteredRequestList(
+                filtrs && filtrs.category ? 
+                data.filter(d=>  d.category.toLowerCase() === filtrs.category):
+                data
+            )}
+        
+        );
         getFiltersFromUrl();
     }, []);
 
@@ -30,10 +39,14 @@ const SearchPage = (props) => {
     }
 
     const doSearch = (value) => {
+        console.log(filters);
         let currentList = requestList;
         let newList = currentList.filter(item => {
                 const lc = item.title.toLowerCase();
                 const filter = value.toLowerCase();
+                if(filters && filters.category){
+                   return lc.includes(filter) && item.category.toLowerCase() === filters.category; 
+                }
                 return lc.includes(filter);
             });
         setFilteredRequestList(newList);
