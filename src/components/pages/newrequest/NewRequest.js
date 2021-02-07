@@ -33,8 +33,16 @@ const NewRequest = () => {
                 requester_id: userObject.attributes? userObject.attributes.email : "john.doe@mail.com",
             });
         };
-
         fetchUser();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position)=>        
+                setFormValues({
+                ...formValues,
+                location: position.coords.latitude + "," + position.coords.longitude,
+                })
+            );
+        }
     }, []);
 
     const handleInputChange = (e) => {
@@ -102,8 +110,8 @@ const NewRequest = () => {
                     label="Location"
                     type="text"
                     value={formValues.location}
-                    onChange={handleInputChange}
                     className={classes.textField}
+                    disabled
                 />
             </Grid>
             <Grid item>

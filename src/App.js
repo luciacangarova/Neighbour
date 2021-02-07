@@ -33,7 +33,6 @@ function App() {
       <div className="body">
         <Switch>
           <Route path={'/request/:id'} render={(props)=> <RequestDetail {...props}/>} />
-          <Route path={'/myrequest/:id'} render={(props)=> <MyRequest {...props}/>} />
           {renderPages()}
         </Switch>
         <MobileNav />

@@ -9,12 +9,14 @@ import { Auth } from "aws-amplify";
 import { getRecords } from "../../../middleware/api.js";
 
 const values = {
-  title: "",
-  description: "",
-  category: "",
-  location: "",
-  expires_on: "",
-  requester_id: ""
+    title: "",
+    description: "",
+    category: "",
+    location: "",
+    expires_on: "",
+    requester_id: "",
+    helper_id: "",
+    potential_helper_ids: ""
 };
 
 const volunteerObject = {
@@ -27,10 +29,11 @@ const MyRequest = (props) => {
     const [detailValues, setDetailValues] = useState(values);
     const [volunteer, setVolunteer] = useState(volunteerObject)
     const [detailId, setDetailId] = useState(0);
+    const [selectedVolunteerId, setSelectedVolunteerId] = useState('');
 
     React.useEffect(() => {
         setDetailId(props.match.params.id);
-        getRecords("/request/?id="+props.match.params.id).then(data => console.log(data));
+        getRecords("/request?id="+props.match.params.id).then(data => console.log(data));
     }, []);
 
     const handleVolunteerButton = (event) => {
