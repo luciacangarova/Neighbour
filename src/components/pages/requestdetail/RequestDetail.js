@@ -10,6 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { SingleSelect } from "react-select-material-ui";
 import Map from '../../common/map';
 import { useHistory } from "react-router";
+import StatusButton from "../../common/statusButton/StatusButton.js";
 
 const values = {
   title: "",
@@ -19,7 +20,8 @@ const values = {
   expires_on: "",
   requester_id: "",
   helper_id: "",
-  potential_helper_ids: ""
+  potential_helper_ids: "",
+  status: "",
 };
 
 const volunteerObject = {
@@ -97,7 +99,17 @@ const RequestDetail = (props) => {
         {!isMyRequest?
         <>
             <Grid container direction="column" className={classes.root}>
-                {detailValues.title}
+                <Grid item>
+                    <Grid container direction="row" justify={"space-between"}>
+                        <Grid item>
+                            {detailValues.title}
+                        </Grid>
+                        <Grid item>
+                            <StatusButton status={detailValues.status} />
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
                 <Grid item>
                     <TextField
                         id="description-input"
@@ -175,7 +187,16 @@ const RequestDetail = (props) => {
         : 
         <>
             <Grid container direction="column" className={classes.root}>
-                {"My Request"}
+                <Grid item>
+                    <Grid container direction="row" justify={"space-between"}>
+                        <Grid item>
+                            {"My Request"}
+                        </Grid>
+                        <Grid item>
+                            <StatusButton status={detailValues.status} />
+                        </Grid>
+                    </Grid>
+                </Grid>
                 <Grid item>
                     <TextField
                         id="title-input"
