@@ -223,15 +223,30 @@ const RequestDetail = (props) => {
                     />
                 </Grid>
                 <Grid item>
-                    <div className={classes.dropdownPanel}>
-                    <InputLabel>Volunteer</InputLabel>
-                    <SingleSelect
-                        value={volunteer.id}
-                        onChange={handleDropdownChange}
-                        placeholder="Select a volunteer"
-                        options={detailValues.potential_helper_ids}
-                    />  
-                    </div>        
+                {detailValues.status==="in progress" || detailValues.status==="completed" || detailValues.status==="uncompleted"?
+                    <>
+                        <TextField
+                        id="volunteer-input"
+                        name="volunteer"
+                        label="Volunteer"
+                        type="text"
+                        value={detailValues.helper_id}
+                        className={classes.textField}
+                        disabled
+                    />
+                    </>
+                    :<>
+                        <div className={classes.dropdownPanel}>
+                        <InputLabel>Volunteer</InputLabel>
+                        <SingleSelect
+                            value={volunteer.id}
+                            onChange={handleDropdownChange}
+                            placeholder="Select a volunteer"
+                            options={detailValues.potential_helper_ids}
+                        />  
+                        </div>    
+                    </>  
+                    }  
                 </Grid>
                 <Grid item>
                     <TextField
@@ -262,7 +277,7 @@ const RequestDetail = (props) => {
                 </Grid>
             </Grid>
             <Grid container alignItems="center" justify="space-evenly" direction="column">
-                {detailValues.status==="in progress"?
+                {detailValues.status==="in progress" || detailValues.status==="completed" || detailValues.status==="uncompleted"?
                 <>
                     <Grid item>
                         <Button 
