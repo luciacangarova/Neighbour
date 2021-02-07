@@ -35,7 +35,7 @@ const SearchPage = (props) => {
     }, []);
 
     const handleSelectButton = (id) => {
-        history.push("request/"+id);
+        history.push("/request/"+id);
     }
 
     const doSearch = (value) => {
@@ -53,7 +53,7 @@ const SearchPage = (props) => {
     }
 
     const handleMapButton = () => {
-
+        history.push("/map");
     }
 
     const handleFilterButton = () => {
