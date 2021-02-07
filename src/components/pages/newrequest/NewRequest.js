@@ -24,6 +24,7 @@ const NewRequest = () => {
     const classes = styles();
     const [formValues, setFormValues] = useState(defaultValues);
     const [categories, setCategories] = useState([]);
+    const [myPosition, setMyPosition] = useState('');
 
     React.useEffect(() => {
         setCategories(CATEGORIES_LIST);
@@ -37,14 +38,15 @@ const NewRequest = () => {
         };
         fetchUser();
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position)=>        
-                setFormValues({
-                ...formValues,
-                location: position.coords.latitude + "," + position.coords.longitude,
-                })
-            );
-        }
+        navigator.geolocation.getCurrentPosition((position)=> {  
+            if (position)     
+            setFormValues({
+            ...formValues,
+            location: position.coords.latitude + "," + position.coords.longitude,
+            });
+            setMyPosition(position.coords.latitude + "," + position.coords.longitude)
+        });
+
     }, []);
 
     const handleInputChange = (e) => {
@@ -64,7 +66,7 @@ const NewRequest = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        postRecords("/request", formValues);
+        postRecords("/request", {...formValues, location: myPosition});
         history.push("/");
     };
 
@@ -111,7 +113,7 @@ const NewRequest = () => {
                     name="location"
                     label="Location"
                     type="text"
-                    value={formValues.location}
+                    value={myPosition}
                     className={classes.textField}
                     disabled
                 />
