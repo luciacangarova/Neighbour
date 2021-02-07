@@ -42,9 +42,9 @@ const NewRequest = () => {
             if (position)     
             setFormValues({
             ...formValues,
-            location: position.coords.latitude + "," + position.coords.longitude,
+            location: position.coords.latitude + ", " + position.coords.longitude,
             });
-            setMyPosition(position.coords.latitude + "," + position.coords.longitude)
+            setMyPosition(position.coords.latitude + ", " + position.coords.longitude)
         });
 
     }, []);

@@ -16,12 +16,14 @@ const values = {
   title: "",
   description: "",
   category: "",
-  location: "",
+  lat: "",
+  long: "",
   expires_on: "",
   requester_id: "",
   helper_id: "",
   potential_helper_ids: "",
   status: "",
+  location: ""
 };
 
 const volunteerObject = {
@@ -78,7 +80,7 @@ const RequestDetail = (props) => {
     const handleSelectVolunteerButton = (event) => {
         event.preventDefault();
         console.log(volunteer)
-        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
+        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + selectedVolunteerId);
         history.push("/");
     }
 
@@ -138,23 +140,27 @@ const RequestDetail = (props) => {
                         name="location"
                         label="Location"
                         type="text"
-                        value={detailValues.location}
+                        value={detailValues.lat + ", "+detailValues.long}
                         className={classes.textField}
                         disabled
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                 </Grid>
                 <Grid item>
-                    {detailValues.location? <Map 
-                        centerLocation={{lat: detailValues.location.split(',')[0],
-                                        lng: detailValues.location.split(',')[1],
+                    {detailValues.lat? <Map 
+                        centerLocation={{lat: detailValues.lat,
+                                        lng: detailValues.long,
                                 }}
-                        locations={[{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
+                        locations={[{lat: detailValues.lat,
+                                    lng: detailValues.long,
                                     address: "Location",
                                     jobID: detailId
                                 }]}
                         zoomLevel={15}
                         myHistory={history}
+                        height={"200px"}
                             /> 
                     : null}
                 </Grid>
@@ -235,16 +241,17 @@ const RequestDetail = (props) => {
                 </Grid>
                 <Grid item>
                     {volunteer.location? <Map 
-                        centerLocation={{lat: detailValues.location.split(',')[0],
-                                        lng: detailValues.location.split(',')[1],
+                        centerLocation={{lat: detailValues.lat,
+                                        lng: detailValues.long,
                                 }}
-                        locations={[{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
+                        locations={[{lat: detailValues.lat,
+                                    lng: detailValues.long,
                                     address: "Location",
                                     jobID: detailId
                                 }]}
                         zoomLevel={15}
                         myHistory={history}
+                        height={"200px"}
                             /> 
                     : null}
                 </Grid>
