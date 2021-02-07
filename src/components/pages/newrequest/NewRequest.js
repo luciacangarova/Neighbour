@@ -66,7 +66,7 @@ const NewRequest = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        postRecords("/request", {...formValues, location: myPosition});
+        postRecords("/request", {...formValues, location: myPosition? myPosition : "55.860916, -4.251433"});
         history.push("/");
     };
 
