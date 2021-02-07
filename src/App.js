@@ -28,7 +28,6 @@ function App() {
 
   return (
     <div className="App">
-      <AmplifySignOut />
       <div className="body">
         <Switch>
           <Route path={'/request/:id'} render={(props)=> <RequestDetail {...props}/>} />

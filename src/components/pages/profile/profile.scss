@@ -1,0 +1,72 @@
+.profile-page {
+    position: relative;
+    .sign-out{
+        position: absolute;
+        bottom: 0;
+        width: 90%;
+        margin:auto
+    }
+    height: 80vh;
+    padding-bottom: 100px;
+    padding: 10px;
+    .home-header{
+        padding: 10px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+    .small-user{
+        margin-top: 10px;
+        background: #CBF1D2;
+        display: grid;
+        grid-template-columns: 60px auto;
+        grid-template-rows: 30px 20px;
+        padding: 15px;
+        border-radius: 10px;
+        .avatar{
+            display: flex;
+            align-items: center;
+            justify-content: start;
+            grid-row: 1 / span 2;
+            grid-column: 1 / span 1;
+            &::before{
+                content: "";
+                height: 45px;
+                width: 45px;
+                background: lightgrey;
+                border-radius: 50%;
+
+            }
+        }
+        h5{
+            color: #013220;
+            padding-left: 5px;
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .currency-info{
+            grid-row: 2 / span 1;
+            grid-column: 2 / span 1;
+            display: flex;
+            align-items: center;
+            svg{
+                width: 18px;
+                height: 18px;
+            }
+            p{
+                font-weight: 600;
+                color: #013220;
+                font-size: 13px;
+            }
+            a{
+                display: inline-block;
+                margin-left: auto;
+            }
+            
+        }
+
+    }
+}
