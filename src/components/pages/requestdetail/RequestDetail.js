@@ -8,6 +8,8 @@ import { Auth } from "aws-amplify";
 import { getRecords } from "../../../middleware/api.js";
 import InputLabel from '@material-ui/core/InputLabel';
 import { SingleSelect } from "react-select-material-ui";
+import Map from '../../common/map';
+import { useHistory } from "react-router";
 
 const values = {
   title: "",
@@ -35,6 +37,8 @@ const RequestDetail = (props) => {
     const [volunteer, setVolunteer] = useState(volunteerObject);
     const [selectedVolunteerId, setSelectedVolunteerId] = useState('');
     const [disableSelectButton, setDisableSelectButton] = useState(false);
+
+    const history = useHistory();
 
 
     React.useEffect(() => {
@@ -65,12 +69,13 @@ const RequestDetail = (props) => {
             "helper_id": userId,
             }
         );
-        window.location.href = "/";
+        //window.location.href = "/";
     }
 
     const handleSelectVolunteerButton = (event) => {
         event.preventDefault();
-        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
+        console.log(volunteer)
+        //postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
         //window.location.href = "/";
     }
 
@@ -126,8 +131,16 @@ const RequestDetail = (props) => {
                     />
                 </Grid>
                 <Grid item>
-                    MAP HERE
-
+                    {detailValues.location? <Map 
+                        myJobID={detailId}
+                        location={{lat: detailValues.location.split(',')[0],
+                                    lng: detailValues.location.split(',')[1],
+                                    address: "Location"
+                                }}
+                        zoomLevel={15}
+                        myHistory={history}
+                            /> 
+                    : null}
                 </Grid>
                 <Grid item>
                     <TextField
@@ -196,8 +209,16 @@ const RequestDetail = (props) => {
                     />
                 </Grid>
                 <Grid item>
-                    MAP HERE
-
+                    {volunteer.location? <Map 
+                        myJobID={detailId}
+                        location={{lat: detailValues.location.split(',')[0],
+                                    lng: detailValues.location.split(',')[1],
+                                    address: "Location"
+                                }}
+                        zoomLevel={15}
+                        myHistory={history}
+                            /> 
+                    : null}
                 </Grid>
             </Grid>
             <Grid container alignItems="center" justify="center">
