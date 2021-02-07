@@ -17,5 +17,13 @@ export const styles = makeStyles((theme) => ({
     },
     textField: {
         width: "100%",
+    },
+    uncompleteButton:{
+        backgroundColor: "#f5f5f5 !important",
+        width: "250px",
+    },
+    completeButton:{
+        backgroundColor: "#FFC000 !important",
+        width: "250px",
     }
   }));
