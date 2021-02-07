@@ -9,6 +9,8 @@ import { postRecords } from "../../../middleware/api.js";
 import { Auth } from "aws-amplify";
 import {CATEGORIES_LIST} from "../../../constants/categories.constants.js"
 import { useHistory } from "react-router-dom"
+import {ReactComponent as Logo} from '../../../logo.svg';
+import './newrequest.scss';
 
 const defaultValues = {
   title: "",
@@ -71,76 +73,81 @@ const NewRequest = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-        <Grid container direction="column" className={classes.root}>
-            <p>New Request</p>
-            <Grid item>
-                <TextField
-                    id="title-input"
-                    name="title"
-                    label="Title"
-                    type="text"
-                    value={formValues.title}
-                    onChange={handleInputChange}
-                    className={classes.textField}
-                />
+        <div className="create-page">
+            <div className="home-header">
+                <Logo />
+            </div>
+            <form onSubmit={handleSubmit}>
+            <Grid container direction="column" className={classes.root}>
+                <h2>New Request</h2>
+                <Grid item>
+                    <TextField
+                        id="title-input"
+                        name="title"
+                        label="Title"
+                        type="text"
+                        value={formValues.title}
+                        onChange={handleInputChange}
+                        className={classes.textField}
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField
+                        id="description-input"
+                        name="description"
+                        label="Description"
+                        type="text"
+                        value={formValues.description}
+                        onChange={handleInputChange}
+                        className={classes.textField}
+                    />
+                </Grid>
+                <Grid item>
+                    <div className={classes.dropdownPanel}>
+                    <InputLabel>Category</InputLabel>
+                    <SingleSelect
+                        value={formValues.category}
+                        onChange={handleDropdownChange}
+                        placeholder="Select a category"
+                        options={categories}
+                    />  
+                    </div>        
+                </Grid>
+                <Grid item>
+                    <TextField
+                        id="location-input"
+                        name="location"
+                        label="Location"
+                        type="text"
+                        value={myPosition}
+                        className={classes.textField}
+                        disabled
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField
+                        id="datetime-input"
+                        label="Due date"
+                        type="datetime-local"
+                        name="expires_on"
+                        defaultValue={formValues.expires_on}
+                        onChange={handleInputChange}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        className={classes.textField}
+                    />
+                </Grid>
             </Grid>
-            <Grid item>
-                <TextField
-                    id="description-input"
-                    name="description"
-                    label="Description"
-                    type="text"
-                    value={formValues.description}
-                    onChange={handleInputChange}
-                    className={classes.textField}
-                />
+            <Grid container alignItems="center" justify="center">
+                <Grid item className="submit-btn">
+                    <Button variant="contained" type="submit" className={classes.submitButton}>
+                        Submit
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item>
-                <div className={classes.dropdownPanel}>
-                <InputLabel>Category</InputLabel>
-                <SingleSelect
-                    value={formValues.category}
-                    onChange={handleDropdownChange}
-                    placeholder="Select a category"
-                    options={categories}
-                />  
-                </div>        
-            </Grid>
-            <Grid item>
-                <TextField
-                    id="location-input"
-                    name="location"
-                    label="Location"
-                    type="text"
-                    value={myPosition}
-                    className={classes.textField}
-                    disabled
-                />
-            </Grid>
-            <Grid item>
-                <TextField
-                    id="datetime-input"
-                    label="Due date"
-                    type="datetime-local"
-                    name="expires_on"
-                    defaultValue={formValues.expires_on}
-                    onChange={handleInputChange}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    className={classes.textField}
-                />
-            </Grid>
-        </Grid>
-        <Grid container alignItems="center" justify="center">
-            <Grid item>
-                <Button variant="contained" type="submit" className={classes.submitButton}>
-                    Submit
-                </Button>
-            </Grid>
-        </Grid>
-        </form>
+            </form>
+        </div>
     );
 };
 export default NewRequest;
