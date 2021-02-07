@@ -8,9 +8,9 @@ export const styles = makeStyles((theme) => ({
     listItem: {
         width: "100%",
         height: "fit-content",
-        backgroundColor: "#CBF1D2",
-        borderRadius: '10px',
+        padding: "15px 5px",
         margin: "5px 0px",
+        borderBottom: '1px solid #CBF1D2',
     },
     categoryButton: {
         backgroundColor: "#FFF2CC !important"

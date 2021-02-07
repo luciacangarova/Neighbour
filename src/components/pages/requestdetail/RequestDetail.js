@@ -16,12 +16,14 @@ const values = {
   title: "",
   description: "",
   category: "",
-  location: "",
+  lat: "",
+  long: "",
   expires_on: "",
   requester_id: "",
   helper_id: "",
   potential_helper_ids: "",
   status: "",
+  location: ""
 };
 
 const volunteerObject = {
@@ -35,10 +37,10 @@ const RequestDetail = (props) => {
     const [detailId, setDetailId] = useState(0);
     const [userId, setUserId] = useState('');
     const [isMyRequest, setIsMyRequest] = useState(false);
-    const [disableButton, setDisableButton] = useState(false);
+    const [disableVolunteerButton, setDisableVolunteerButton] = useState(false);
     const [volunteer, setVolunteer] = useState(volunteerObject);
     const [selectedVolunteerId, setSelectedVolunteerId] = useState('');
-    const [disableSelectButton, setDisableSelectButton] = useState(false);
+    const [disableSelectVolunteerButton, setDisableSelectVolunteerButton] = useState(false);
 
     const history = useHistory();
 
@@ -54,8 +56,8 @@ const RequestDetail = (props) => {
         const data = await getRecords("/request?id="+props.match.params.id);
         setDetailValues(data)
         setIsMyRequest(data.requester_id===uId)
-        setDisableButton(data.potential_helper_ids.includes(userId)? true : false)
-        setDisableSelectButton(data.potential_helper_ids.length > 0? false : true)
+        setDisableVolunteerButton(data.potential_helper_ids.includes(uId)? true : false)
+        setDisableSelectVolunteerButton(data.potential_helper_ids.length > 0? false : true)
     }, []);
 
     const getUserName = async () => {
@@ -78,7 +80,7 @@ const RequestDetail = (props) => {
     const handleSelectVolunteerButton = (event) => {
         event.preventDefault();
         console.log(volunteer)
-        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + userId);
+        postRecords("/accept_helper_for_request?id=" + detailId + "&helper_id=" + selectedVolunteerId);
         history.push("/");
     }
 
@@ -138,23 +140,27 @@ const RequestDetail = (props) => {
                         name="location"
                         label="Location"
                         type="text"
-                        value={detailValues.location}
+                        value={detailValues.lat + ", "+detailValues.long}
                         className={classes.textField}
                         disabled
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                 </Grid>
                 <Grid item>
-                    {detailValues.location? <Map 
-                        centerLocation={{lat: detailValues.location.split(',')[0],
-                                        lng: detailValues.location.split(',')[1],
+                    {detailValues.lat? <Map 
+                        centerLocation={{lat: detailValues.lat,
+                                        lng: detailValues.long,
                                 }}
-                        locations={[{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
+                        locations={[{lat: detailValues.lat,
+                                    lng: detailValues.long,
                                     address: "Location",
                                     jobID: detailId
                                 }]}
                         zoomLevel={15}
                         myHistory={history}
+                        height={"200px"}
                             /> 
                     : null}
                 </Grid>
@@ -180,7 +186,7 @@ const RequestDetail = (props) => {
                         type="submit" 
                         className={classes.submitButton}
                         onClick={handleVolunteerButton}
-                        disabled={disableButton}
+                        disabled={disableVolunteerButton}
                     >
                         Volunteer
                     </Button>
@@ -235,16 +241,17 @@ const RequestDetail = (props) => {
                 </Grid>
                 <Grid item>
                     {volunteer.location? <Map 
-                        centerLocation={{lat: detailValues.location.split(',')[0],
-                                        lng: detailValues.location.split(',')[1],
+                        centerLocation={{lat: detailValues.lat,
+                                        lng: detailValues.long,
                                 }}
-                        locations={[{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
+                        locations={[{lat: detailValues.lat,
+                                    lng: detailValues.long,
                                     address: "Location",
                                     jobID: detailId
                                 }]}
                         zoomLevel={15}
                         myHistory={history}
+                        height={"200px"}
                             /> 
                     : null}
                 </Grid>
@@ -256,7 +263,7 @@ const RequestDetail = (props) => {
                         type="submit" 
                         className={classes.submitButton}
                         onClick={handleSelectVolunteerButton}
-                        disabled={disableSelectButton}
+                        disabled={disableSelectVolunteerButton}
                     >
                         Select Volunteer
                     </Button>
