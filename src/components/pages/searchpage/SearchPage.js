@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import { getRecords } from "../../../middleware/api.js";
 import { useHistory } from "react-router-dom";
 import * as QueryString from "query-string"
+import StatusButton from "../../common/statusButton/StatusButton.js";
+import CategoryIcon from "../../common/categoryIcon"
 
 const SearchPage = (props) => {
     const classes = styles();
@@ -71,18 +73,18 @@ const SearchPage = (props) => {
             <Grid container direction="column">
                 <Grid item>
                     <Grid container direction={"row"} justify="space-between" className="top-bar">
-                        <Grid item>
+                        <Grid item className="search-bar">
                             <SearchBar
                                 value={searchValue}
                                 onChange={(newValue) => {setSearchValue(newValue); doSearch(newValue);}}
                             />
                         </Grid>
-                        <Grid item>
+                        <Grid item className="map-btn">
                             <IconButton className={classes.iconButton} onClick={handleMapButton}>
                                 <ExploreIcon fontSize="default"/>
                             </IconButton>
                         </Grid>
-                        <Grid item>
+                        <Grid item className="filter-btn">
                             <IconButton className={classes.iconButton} onClick={handleFilterButton}>
                                 <FilterListIcon fontSize="default"/>
                             </IconButton>
@@ -93,8 +95,11 @@ const SearchPage = (props) => {
                     <List className={classes.root}>
                         {filteredRequestList.map(request => 
                             <ListItem alignItems="flex-start" className={classes.listItem} key={request.id}>
-                                <div>
+                                <div className="search-itm">
+                                    <div className='itm-title'>
                                     {request.title}
+                                    </div>
+                                    
                                     <Grid container direction="column">
                                         <Grid item >
                                             {request.description}
@@ -104,8 +109,9 @@ const SearchPage = (props) => {
                                         </Grid>
                                         <Grid item >
                                             <Grid container direction="row" justify={"space-between"} className={classes.buttonBar} key={request.description}>
-                                                <Grid item>
-                                                    <Button size="small" className={classes.categoryButton} key={request.title}>{request.category}</Button>
+                                                <Grid item className="labels">
+                                                    <CategoryIcon category={request.category} /> 
+                                                    <StatusButton key={request.title} status={request.category}/>  
                                                 </Grid>
                                                 <Grid item>
                                                     <Button 
