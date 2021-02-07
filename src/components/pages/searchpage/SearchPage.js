@@ -40,7 +40,7 @@ const SearchPage = (props) => {
     }
 
     const handleMapButton = () => {
-
+        history.push("/map");
     }
 
     const handleFilterButton = () => {
