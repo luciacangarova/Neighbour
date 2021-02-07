@@ -37,25 +37,26 @@ const RequestDetail = (props) => {
     const [disableSelectButton, setDisableSelectButton] = useState(false);
 
 
-    React.useEffect(() => {
+    React.useEffect(async () => {
         // fetch user ID
-        getUserName();
+        const uId = await getUserName();
 
         // set request ID
         setDetailId(props.match.params.id);
 
         // get request details
-        getRecords("/request?id="+props.match.params.id).then( data => {
-            setDetailValues(data)
-            setIsMyRequest(data.requester_id===userId)
-            setDisableButton(data.potential_helper_ids.includes(userId)? true : false)
-            setDisableSelectButton(data.potential_helper_ids.length > 0? false : true)
-        });
+        const data = await getRecords("/request?id="+props.match.params.id);
+        setDetailValues(data)
+        setIsMyRequest(data.requester_id===uId)
+        setDisableButton(data.potential_helper_ids.includes(userId)? true : false)
+        setDisableSelectButton(data.potential_helper_ids.length > 0? false : true)
     }, []);
 
     const getUserName = async () => {
         const userObject = await Auth.currentUserInfo();
-        setUserId(userObject ? userObject.attributes ? userObject.attributes.email: "John Doe": "John Doe" );
+        const uid = userObject ? userObject.attributes ? userObject.attributes.email: "John Doe": "John Doe";
+        setUserId(uid);
+        return uid;
     }
 
     const handleVolunteerButton = (event) => {
