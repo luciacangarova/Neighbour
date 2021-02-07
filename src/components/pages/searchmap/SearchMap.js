@@ -10,32 +10,32 @@ const SearchMap = () => {
     const [locations, setLocations] = React.useState([]);
     const history = useHistory()
     React.useEffect(() => {
-        let data = [];
-        getRecords("/all-requests").then(d => {setRequestList(d); data = d});
-
-        // create locations
-        let temp = [];
-        data.map( request => {
-            temp = [...temp, {
-                lat: request.location.split(',')[0],
-                lng: request.location.split(',')[1],
-                address: request.title,
-                jobID: request.id
-            }]
+        getRecords("/all-requests").then(data => {
+            setRequestList(data); 
+                    // create locations
+            let temp = [];
+            data.map( request => {
+                temp = [...temp, {
+                    lat: request.lat? request.lat : "55.987",
+                    lng: request.long? request.long : "-4.123",
+                    address: request.title,
+                    jobID: request.id
+                }]
+            });
+            setLocations(temp);
         });
-        setLocations(temp);
-        console.log(temp)
     }, []);
 
     return(
         <>
-            {locations? <Map 
-                centerLocation={{lat: 0,
-                                lng: 0,
+            {locations.length>0? <Map 
+                centerLocation={{lat: "55.86944",
+                                lng: "-4.3057152",
                         }}
                 locations={locations}
-                zoomLevel={15}
+                zoomLevel={13}
                 myHistory={history}
+                height={"600px"}
             />
             : null}
         </>
