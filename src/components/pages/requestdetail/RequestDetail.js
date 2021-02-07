@@ -37,10 +37,10 @@ const RequestDetail = (props) => {
     const [detailId, setDetailId] = useState(0);
     const [userId, setUserId] = useState('');
     const [isMyRequest, setIsMyRequest] = useState(false);
-    const [disableButton, setDisableButton] = useState(false);
+    const [disableVolunteerButton, setDisableVolunteerButton] = useState(false);
     const [volunteer, setVolunteer] = useState(volunteerObject);
     const [selectedVolunteerId, setSelectedVolunteerId] = useState('');
-    const [disableSelectButton, setDisableSelectButton] = useState(false);
+    const [disableSelectVolunteerButton, setDisableSelectVolunteerButton] = useState(false);
 
     const history = useHistory();
 
@@ -56,8 +56,8 @@ const RequestDetail = (props) => {
         const data = await getRecords("/request?id="+props.match.params.id);
         setDetailValues(data)
         setIsMyRequest(data.requester_id===uId)
-        setDisableButton(data.potential_helper_ids.includes(userId)? true : false)
-        setDisableSelectButton(data.potential_helper_ids.length > 0? false : true)
+        setDisableVolunteerButton(data.potential_helper_ids.includes(uId)? true : false)
+        setDisableSelectVolunteerButton(data.potential_helper_ids.length > 0? false : true)
     }, []);
 
     const getUserName = async () => {
@@ -186,7 +186,7 @@ const RequestDetail = (props) => {
                         type="submit" 
                         className={classes.submitButton}
                         onClick={handleVolunteerButton}
-                        disabled={disableButton}
+                        disabled={disableVolunteerButton}
                     >
                         Volunteer
                     </Button>
@@ -263,7 +263,7 @@ const RequestDetail = (props) => {
                         type="submit" 
                         className={classes.submitButton}
                         onClick={handleSelectVolunteerButton}
-                        disabled={disableSelectButton}
+                        disabled={disableSelectVolunteerButton}
                     >
                         Select Volunteer
                     </Button>
