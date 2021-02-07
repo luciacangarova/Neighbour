@@ -8,6 +8,7 @@ import {styles} from "./newRequest.style";
 import { postRecords } from "../../../middleware/api.js";
 import { Auth } from "aws-amplify";
 import {CATEGORIES_LIST} from "../../../constants/categories.constants.js"
+import { useHistory } from "react-router-dom"
 
 const defaultValues = {
   title: "",
@@ -19,6 +20,7 @@ const defaultValues = {
 };
 
 const NewRequest = () => {
+    const history = useHistory();
     const classes = styles();
     const [formValues, setFormValues] = useState(defaultValues);
     const [categories, setCategories] = useState([]);
@@ -63,7 +65,7 @@ const NewRequest = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         postRecords("/request", formValues);
-        window.location.href = "/";
+        history.push("/");
     };
 
     return (
