@@ -10,16 +10,17 @@ import AddIcon from '@material-ui/icons/Add';
 import React from 'react';
 import {styles} from './mobileNav.styles';
 import '.';
+import { useHistory } from 'react-router-dom';
 
 const MobileNav = () => {
     const classes = styles();
-
+    const history = useHistory();
     const handlePageChange = (pageLink) => {
-      window.location.href = pageLink;
+      history.push(pageLink);
     }
 
     return (
-        <AppBar position="fixed" color="primary" className={classes.appBar}>
+        <AppBar position="fixed" color="primary" className={`${classes.appBar} `}>
             <Toolbar>
                 <IconButton edge="start" color="inherit" aria-label="open drawer" className={classes.iconButton} onClick={() => handlePageChange("/")}>
                     <HomeIcon fontSize="large" />

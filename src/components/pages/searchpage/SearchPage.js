@@ -10,19 +10,21 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import { getRecords } from "../../../middleware/api.js";
+import { useHistory } from "react-router-dom";
 
 const SearchPage = () => {
     const classes = styles();
     const [searchValue, setSearchValue] = React.useState('');
     const [requestList, setRequestList] = React.useState([]);
     const [filteredRequestList, setFilteredRequestList] = React.useState([]);
+    const history = useHistory()
 
     React.useEffect(() => {
         getRecords("/all-requests").then(data => {setRequestList(data); setFilteredRequestList(data)});
     }, []);
 
     const handleSelectButton = (id) => {
-        window.location.href = "request/"+id;
+        history.push("request/"+id);
     }
 
     const doSearch = (value) => {
@@ -44,10 +46,10 @@ const SearchPage = () => {
     }
 
     return (
-        <div>
+        <div className="search-page">
             <Grid container direction="column">
                 <Grid item>
-                    <Grid container direction={"row"} justify="space-between">
+                    <Grid container direction={"row"} justify="space-between" className="top-bar">
                         <Grid item>
                             <SearchBar
                                 value={searchValue}

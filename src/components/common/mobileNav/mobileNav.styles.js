@@ -2,9 +2,10 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export const styles = makeStyles((theme) => ({
     appBar: {
-      top: 'auto',
+      top: 'unset',
       bottom: 0,
       backgroundColor: "#436E4B",
+      position: 'fixed'
     },
     grow: {
       flexGrow: 1,

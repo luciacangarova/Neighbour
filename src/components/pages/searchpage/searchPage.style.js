@@ -2,15 +2,15 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export const styles = makeStyles((theme) => ({
     iconButton: {
-      marginLeft: 5,
-      marginRight: 5,
+      marginLeft: '2px',
+      marginRight: '2px',
     },
     listItem: {
-        width: "calc(100% - 10px)",
-        height: "calc(100% - 10px)",
+        width: "100%",
+        height: "fit-content",
         backgroundColor: "#CBF1D2",
-        borderRadius: 20,
-        margin: 5,
+        borderRadius: '10px',
+        margin: "5px 0px",
     },
     categoryButton: {
         backgroundColor: "#FFF2CC !important"
@@ -19,6 +19,6 @@ export const styles = makeStyles((theme) => ({
         backgroundColor: "#FFC000 !important",
     },
     buttonBar: {
-        width: "350px !important"
+        width: "100%"
     }
   }));

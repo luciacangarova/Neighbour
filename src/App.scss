@@ -1,5 +1,6 @@
 .App {
   color: black;
+  box-sizing: border-box;
 }
 h3{
   font-size: 14px;
@@ -7,4 +8,5 @@ h3{
 }
 body {
   padding-bottom: 80px;
+  width: 100%;
 }
