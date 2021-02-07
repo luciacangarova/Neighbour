@@ -7,12 +7,13 @@ import Profile from './components/pages/profile';
 import SearchPage from './components/pages/searchpage';
 import NewRequest from './components/pages/newrequest';
 import RequestDetail from './components/pages/requestdetail';
-import MyRequest from './components/pages/myrequest';
+import SearchMap from './components/pages/searchmap';
 import MobileNav from './components/common/mobileNav';
 
 function App() {
 
   const pages = [
+    {route: '/map', page: <SearchMap />},
     {route: '/newRequest', page: <NewRequest />},
     {route: '/profile', page: <Profile />},
     {route: '/', page: <HomePage />},

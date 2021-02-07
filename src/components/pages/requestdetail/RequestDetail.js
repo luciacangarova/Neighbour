@@ -145,11 +145,14 @@ const RequestDetail = (props) => {
                 </Grid>
                 <Grid item>
                     {detailValues.location? <Map 
-                        myJobID={detailId}
-                        location={{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
-                                    address: "Location"
+                        centerLocation={{lat: detailValues.location.split(',')[0],
+                                        lng: detailValues.location.split(',')[1],
                                 }}
+                        locations={[{lat: detailValues.location.split(',')[0],
+                                    lng: detailValues.location.split(',')[1],
+                                    address: "Location",
+                                    jobID: detailId
+                                }]}
                         zoomLevel={15}
                         myHistory={history}
                             /> 
@@ -232,11 +235,14 @@ const RequestDetail = (props) => {
                 </Grid>
                 <Grid item>
                     {volunteer.location? <Map 
-                        myJobID={detailId}
-                        location={{lat: detailValues.location.split(',')[0],
-                                    lng: detailValues.location.split(',')[1],
-                                    address: "Location"
+                        centerLocation={{lat: detailValues.location.split(',')[0],
+                                        lng: detailValues.location.split(',')[1],
                                 }}
+                        locations={[{lat: detailValues.location.split(',')[0],
+                                    lng: detailValues.location.split(',')[1],
+                                    address: "Location",
+                                    jobID: detailId
+                                }]}
                         zoomLevel={15}
                         myHistory={history}
                             /> 
