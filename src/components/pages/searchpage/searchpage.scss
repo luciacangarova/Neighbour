@@ -4,6 +4,15 @@
         width: 100%;
     }
     .top-bar{
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50px 50px;
+        .MuiInputBase-input{
+            grid-row: 1 / span 1;
+            grid-column: 1 / span 2;         
+        }
+        .jss33{
+            
+        }
     }
 }
