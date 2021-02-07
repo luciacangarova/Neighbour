@@ -33,7 +33,7 @@ const NewRequest = () => {
             let userObject = await Auth.currentUserInfo()
             setFormValues({
                 ...formValues,
-                requester_id: userObject.attributes? userObject.attributes.email : "john.doe@mail.com",
+                requester_id: userObject ? userObject.attributes? userObject.attributes.email : "john.doe@mail.com": "john.doe@mail.com",
             });
         };
         fetchUser();
